@@ -115,6 +115,8 @@ class TicTacToeGame {
     private Player player1;
     private Player player2;
     private Player currentPlayer;
+    private Player winner;
+
     
 
     public TicTacToeGame(int size, String player1Name, String player2Name) {
@@ -160,6 +162,15 @@ class TicTacToeGame {
         this.currentPlayer = currentPlayer;
     }
     
+    // Getter and setter for winner
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
+    
     // Method to make a move
     public boolean makeMove(int row, int col) {
         if (!board.isValidMove(row, col)) {
@@ -193,7 +204,10 @@ class TicTacToeGame {
                 break;
             }
         }
-        if (winInRow) return true;
+        if (winInRow) {
+            winner = currentPlayer;
+            return true;
+        }
     
         // Check column
         boolean winInCol = true;
@@ -203,8 +217,11 @@ class TicTacToeGame {
                 break;
             }
         }
-        if (winInCol) return true;
-    
+        if (winInCol) {
+            winner = currentPlayer;
+            return true;
+        }
+
         // Check main diagonal
         if (row == col) {
             boolean winInMainDiagonal = true;
@@ -214,7 +231,10 @@ class TicTacToeGame {
                     break;
                 }
             }
-            if (winInMainDiagonal) return true;
+            if (winInMainDiagonal) {
+                winner = currentPlayer;
+                return true;
+            }
         }
     
         // Check anti-diagonal
@@ -226,7 +246,10 @@ class TicTacToeGame {
                     break;
                 }
             }
-            if (winInAntiDiagonal) return true;
+            if (winInAntiDiagonal) {
+                winner = currentPlayer;
+                return true;
+            }       
         }
     
         return false;
